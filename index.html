@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name | Portfolio</title>
+  <style>
+    /* ========== GLOBAL STYLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    a:hover {
+      color: #22d3ee;
+    }
+
+    section {
+      padding: 80px 10%;
+    }
+
+    /* ========== NAVBAR ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 10%;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #38bdf8;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: #f8fafc;
+      font-weight: 500;
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(180deg, #0f172a, #1e293b);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+
+    .hero h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #cbd5e1;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin-top: 20px;
+      color: #94a3b8;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 30px;
+      background: #38bdf8;
+      color: #0f172a;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #22d3ee;
+      transform: translateY(-3px);
+    }
+
+    /* ========== PROJECTS SECTION ========== */
+    .projects {
+      background: #1e293b;
+    }
+
+    .projects h2 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+      color: #38bdf8;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .project-card {
+      background: #0f172a;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: #38bdf8;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .project-info {
+      padding: 20px;
+    }
+
+    .project-info h3 {
+      color: #f8fafc;
+      margin-bottom: 10px;
+    }
+
+    .project-info p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    /* ========== ABOUT SECTION ========== */
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .about img {
+      width: 300px;
+      border-radius: 20px;
+      border: 2px solid #38bdf8;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-text h2 {
+      font-size: 2.2rem;
+      color: #38bdf8;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      color: #cbd5e1;
+    }
+
+    /* ========== SKILLS SECTION ========== */
+    .skills {
+      background: #1e293b;
+      text-align: center;
+    }
+
+    .skills h2 {
+      color: #38bdf8;
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .skill {
+      background: #0f172a;
+      padding: 12px 25px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .skill:hover {
+      border-color: #38bdf8;
+      transform: scale(1.05);
+    }
+
+    /* ========== CONTACT SECTION ========== */
+    .contact {
+      text-align: center;
+    }
+
+    .contact h2 {
+      color: #38bdf8;
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+    }
+
+    .contact p {
+      color: #cbd5e1;
+      margin-bottom: 20px;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .socials a {
+      background: #0f172a;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: 0.3s;
+    }
+
+    .socials a:hover {
+      border-color: #38bdf8;
+      transform: translateY(-3px);
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #0f172a;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .about {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about img {
+        width: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav>
+    <div class="logo">AK</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section id="home" class="hero">
+    <h1>Hi, I'm <span style="color:#22d3ee;">Your Name</span></h1>
+    <h2>Flutter Developer | AI Enthusiast</h2>
+    <p>Building intelligent, beautiful, and user-friendly apps that make life easier.</p>
+    <a href="#projects" class="btn">View My Work</a>
+  </section>
+
+  <!-- ========== PROJECTS SECTION ========== -->
+  <section id="projects" class="projects">
+    <h2>My Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <img src="https://via.placeholder.com/400x250" alt="Project 1">
+        <div class="project-info">
+          <h3>AI Chat App</h3>
+          <p>A smart chat app built using Flutter and OpenAI API.</p>
+          <a href="#">GitHub →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://via.placeholder.com/400x250" alt="Project 2">
+        <div class="project-info">
+          <h3>Image Classifier</h3>
+          <p>Deep learning model integrated into a mobile app for real-time recognition.</p>
+          <a href="#">View Code →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://via.placeholder.com/400x250" alt="Project 3">
+        <div class="project-info">
+          <h3>Expense Tracker</h3>
+          <p>A Flutter + Firebase app to visualize and manage daily expenses.</p>
+          <a href="#">Demo →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT SECTION ========== -->
+  <section id="about" class="about">
+    
+    <div class="about-text">
+      <h2>About Me</h2>
+      <p>I'm a passionate Flutter developer and AI enthusiast who loves turning creative ideas into functional apps. My goal is to blend mobile development with artificial intelligence to deliver smarter user experiences.</p>
+    </div>
+  </section>
+
+  <!-- ========== SKILLS SECTION ========== -->
+  <section id="skills" class="skills">
+    <h2>Skills</h2>
+    <div class="skill-list">
+      <div class="skill">Flutter</div>
+      <div class="skill">Python</div>
+      <div class="skill">Django</div>
+      <div class="skill">Firebase</div>
+      <div class="skill">Git</div>
+      <div class="skill">Dart</div>
+      <div class="skill">Machine Learning</div>
+      <div class="skill">PostgreSQL</div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT SECTION ========== -->
+ <section id="contact" class="contact">
+  <h2>Contact Me</h2>
+  <p>Let's collaborate or chat about new ideas!</p>
+  <div class="socials">
+    <a href="https://github.com/abiralkhatiwada" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/abiral-khatiwada-/" target="_blank">LinkedIn</a>
+    <a href="mailto:abiralkhatiwada37@gmail.com">Email</a>
+  </div>
+</section>
+
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    © 2025 abiralkhatiwada. All Rights Reserved.
+  </footer>
+</body>
+</html>
