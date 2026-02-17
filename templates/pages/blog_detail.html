@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} | {{ profile.name|default:"Abiral Khatiwada" }}{% endblock %}
+{% block meta_description %}{{ post.excerpt|truncatewords:25 }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}" />
+{% endblock %}
+
+{% block content %}
+<article class="blog-detail">
+    <div class="blog-detail-header">
+        <a href="{% url 'portfolio:blog_list' %}" class="back-link">← Back to Blog</a>
+        <time datetime="{{ post.created_at|date:'Y-m-d' }}">{{ post.created_at|date:"F d, Y" }}</time>
+        <h1>{{ post.title }}</h1>
+        {% if post.updated_at != post.created_at %}
+        <p class="updated-date">Updated: {{ post.updated_at|date:"F d, Y" }}</p>
+        {% endif %}
+    </div>
+
+    {% if post.image %}
+    <div class="blog-detail-image">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+    </div>
+    {% endif %}
+
+    <div class="blog-detail-content">
+        {{ post.content|linebreaks }}
+    </div>
+
+    <div class="blog-detail-footer">
+        <a href="{% url 'portfolio:blog_list' %}" class="btn btn-outline">← More Posts</a>
+        <a href="{% url 'portfolio:home' %}" class="btn btn-outline">Home</a>
+    </div>
+</article>
+{% endblock %}

@@ -1,0 +1,12 @@
+<!-- Skills Section Component -->
+<section id="skills" class="skills">
+    <h2 class="section-title">Skills</h2>
+    <p class="section-subtitle">Technologies & tools I work with</p>
+    <div class="skill-list">
+        {% for skill in skills %}
+        <div class="skill">{{ skill.name }}</div>
+        {% empty %}
+        <p class="empty-message">Skills will be listed here soon.</p>
+        {% endfor %}
+    </div>
+</section>

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Blog | {{ profile.name|default:"Abiral Khatiwada" }}{% endblock %}
+{% block meta_description %}Blog posts by {{ profile.name|default:"Abiral Khatiwada" }} — tutorials, insights, and
+thoughts on development and AI.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="blog-page">
+    <div class="blog-header">
+        <h1>Blog</h1>
+        <p>Thoughts, tutorials, and insights on development and AI</p>
+    </div>
+
+    <div class="blog-list">
+        {% for post in posts %}
+        <a href="{% url 'portfolio:blog_detail' post.slug %}" class="blog-list-card">
+            <div class="blog-list-image">
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+                {% else %}
+                <div class="blog-card-placeholder">
+                    <span>📝</span>
+                </div>
+                {% endif %}
+            </div>
+            <div class="blog-list-content">
+                <time datetime="{{ post.created_at|date:'Y-m-d' }}">{{ post.created_at|date:"M d, Y" }}</time>
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.excerpt }}</p>
+                <span class="read-more">Read More →</span>
+            </div>
+        </a>
+        {% empty %}
+        <div class="empty-blog">
+            <span class="empty-icon">📝</span>
+            <h2>No posts yet</h2>
+            <p>Blog posts are coming soon — stay tuned!</p>
+            <a href="{% url 'portfolio:home' %}" class="btn btn-primary">← Back to Home</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

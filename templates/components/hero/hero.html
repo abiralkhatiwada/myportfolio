@@ -1,0 +1,15 @@
+<!-- Hero Section Component -->
+<section id="home" class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+        <p class="hero-greeting">Hello, I'm</p>
+        <h1>{% if profile %}{{ profile.name }}{% else %}Abiral Khatiwada{% endif %}</h1>
+        <h2>{% if profile %}{{ profile.title }}{% else %}Flutter Developer | AI Enthusiast{% endif %}</h2>
+        <p class="hero-tagline">{% if profile %}{{ profile.tagline }}{% else %}Building intelligent, beautiful, and
+            user-friendly apps that make life easier.{% endif %}</p>
+        <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-outline">Get In Touch</a>
+        </div>
+    </div>
+</section>
