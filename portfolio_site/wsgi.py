@@ -25,4 +25,3 @@ try:
     call_command('seed_data', interactive=False)
 except Exception as e:
     print(f"Startup error: {e}")
-
