@@ -15,3 +15,14 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portfolio_site.settings')
 
 application = get_wsgi_application()
 app = application
+
+# Run migrations and seeding on startup (Vercel cold start)
+try:
+    from django.core.management import call_command
+    # Run migrations
+    call_command('migrate', interactive=False)
+    # Seed data
+    call_command('seed_data', interactive=False)
+except Exception as e:
+    print(f"Startup error: {e}")
+
