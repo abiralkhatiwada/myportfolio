@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'portfolio_site.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Database
-# Configure via DATABASE_URL environment variable in Vercel
+# Configure via DATABASE_URL environment variable in Railway
 # Example: postgres://user:pass@host:5432/dbname
 import dj_database_url
 
@@ -88,7 +88,7 @@ DATABASES = {
     )
 }
 
-# Add SSL requirement for project on Vercel/Neon
+# Add SSL requirement for project on Railway/Neon
 if not DEBUG and 'default' in DATABASES and DATABASES['default']['ENGINE'] != 'django.db.backends.sqlite3':
     DATABASES['default']['OPTIONS'] = {
         'sslmode': 'require',
@@ -143,8 +143,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CSRF trusted origins for Vercel
+# CSRF trusted origins for Railway
 CSRF_TRUSTED_ORIGINS = os.environ.get(
     'CSRF_TRUSTED_ORIGINS',
-    'https://*.vercel.app,https://abiralkhatiwada.com.np'
+    'https://*.railway.app,https://abiralkhatiwada.com.np'
 ).split(',')
