@@ -1,17 +1,20 @@
 {
   "version": 2,
-  "buildCommand": "python manage.py collectstatic --noinput",
   "builds": [
     {
-      "src": "portfolio_site/wsgi.py",
+      "src": "manage.py",
       "use": "@vercel/python",
       "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.12"
+        "runtime": "python3.12",
+        "maxLambdaSize": "15mb"
       }
     }
   ],
   "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/staticfiles/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "portfolio_site/wsgi.py"
