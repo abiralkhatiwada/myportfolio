@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "manage.py",
+      "src": "portfolio_site/wsgi.py",
       "use": "@vercel/python",
       "config": {
         "runtime": "python3.12",
@@ -10,11 +10,8 @@
       }
     }
   ],
+  "buildCommand": "bash build_files.sh",
   "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "/staticfiles/$1"
-    },
     {
       "src": "/(.*)",
       "dest": "portfolio_site/wsgi.py"
