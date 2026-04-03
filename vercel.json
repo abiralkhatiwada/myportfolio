@@ -2,8 +2,7 @@
   "version": 2,
   "functions": {
     "api/index.py": {
-      "runtime": "python3.12",
-      "maxLambdaSize": "15mb"
+      "runtime": "python3.12"
     }
   },
   "rewrites": [
