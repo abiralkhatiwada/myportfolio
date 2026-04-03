@@ -1,4 +1,3 @@
-from portfolio_site.wsgi import app
+from portfolio_site.wsgi import application
 
-# Vercel needs a variable named 'app'
-# Since we already added 'app = application' to wsgi.py, we just import it.
+app = application
