@@ -1,19 +1,15 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "portfolio_site/wsgi.py",
-      "use": "@vercel/python",
-      "config": {
-        "runtime": "python3.12",
-        "maxLambdaSize": "15mb"
-      }
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.12",
+      "maxLambdaSize": "15mb"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "portfolio_site/wsgi.py"
+      "source": "/(.*)",
+      "destination": "api/index.py"
     }
   ]
 }
