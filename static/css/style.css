@@ -236,6 +236,7 @@ nav#navbar:hover::after { width: 100%; }
   position: relative;
 }
 
+
 .logo img {
   height: 60px;
   width: auto;
