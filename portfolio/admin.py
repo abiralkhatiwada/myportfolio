@@ -1,10 +1,16 @@
 from django.contrib import admin
-from .models import Profile, Skill, Project, BlogPost
+from .models import Profile, Skill, Project, BlogPost, SocialLink
+
+
+class SocialLinkInline(admin.TabularInline):
+    model = SocialLink
+    extra = 1
 
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ("name", "title", "email")
+    inlines = [SocialLinkInline]
 
     def has_add_permission(self, request):
         # Only allow adding if no Profile exists yet

@@ -1038,90 +1038,138 @@ nav#navbar:hover::after { width: 100%; }
   border-top: 1px solid var(--line-mid);
 }
 
-/* ========== CONTACT SECTION ========== */
+/* ========== CONTACT SECTION (TERMINAL-NOIR) ========== */
 .contact {
   background: var(--bg-deep);
-  text-align: center;
+  padding: var(--pad-section);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.contact-card {
-  max-width: 580px;
-  margin: 0 auto;
+.contact-terminal {
+  width: 100%;
+  max-width: 800px;
   background: var(--bg-card);
   border: 1px solid var(--line-mid);
   border-radius: 8px;
-  padding: 48px 40px;
-  position: relative;
   overflow: hidden;
-}
-/* Corner accents */
-.contact-card::before,
-.contact-card::after {
-  content: '';
-  position: absolute;
-  width: 20px; height: 20px;
-  border-color: var(--acid);
-  border-style: solid;
-}
-.contact-card::before {
-  top: 16px; left: 16px;
-  border-width: 1px 0 0 1px;
-}
-.contact-card::after {
-  bottom: 16px; right: 16px;
-  border-width: 0 1px 1px 0;
+  box-shadow: 0 32px 64px rgba(0,0,0,0.5), 0 0 60px var(--acid-ghost);
+  position: relative;
 }
 
-.contact-info { margin-bottom: 28px; }
-
-.contact-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--text-300);
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  padding: 12px 22px;
-  border-radius: 4px;
+.terminal-header {
   background: var(--bg-surface);
-  border: 1px solid var(--line-mid);
-  transition: all var(--t-fast);
-}
-.contact-item:hover {
-  border-color: var(--acid-dim);
-  color: var(--acid);
-  background: var(--acid-ghost);
-}
-.contact-icon { font-size: 1rem; }
-
-.socials {
+  padding: 12px 20px;
   display: flex;
-  justify-content: center;
+  align-items: center;
   gap: 12px;
-  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line-mid);
 }
 
-.social-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--bg-surface);
-  padding: 11px 20px;
-  border-radius: 4px;
-  border: 1px solid var(--line-mid);
-  color: var(--text-300);
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line-bright);
+  opacity: 0.3;
+}
+
+.terminal-title {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
+  font-size: 0.65rem;
+  color: var(--text-400);
+  letter-spacing: 0.15em;
+  margin-left: auto;
+}
+
+.terminal-body {
+  padding: 32px 40px;
+  font-family: var(--font-mono);
+}
+
+.contact-intro {
+  margin-bottom: 32px;
+  font-size: 0.88rem;
+  color: var(--text-300);
+}
+
+.prompt {
+  color: var(--acid);
+  font-weight: 700;
+}
+
+.status-online {
+  color: var(--acid);
+  text-shadow: 0 0 8px var(--acid-pulse);
+}
+
+.contact-links-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.contact-node {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--line-dim);
+  border-radius: 4px;
   transition: all var(--t-fast) var(--ease-out);
 }
-.social-link:hover {
-  border-color: var(--acid-dim);
-  color: var(--acid);
+
+.contact-node:hover {
   background: var(--acid-ghost);
-  transform: translateY(-2px);
+  border-color: var(--acid-dim);
+  transform: translateX(6px);
 }
-.social-link svg { flex-shrink: 0; }
+
+.node-id {
+  color: var(--text-400);
+  font-size: 0.75rem;
+}
+
+.node-label {
+  color: var(--acid-dim);
+  font-size: 0.82rem;
+  min-width: 120px;
+}
+
+.node-val {
+  color: var(--text-200);
+  font-size: 0.88rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-footer {
+  border-top: 1px solid var(--line-dim);
+  padding-top: 20px;
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 18px;
+  background: var(--acid);
+  animation: blink 1s step-end infinite;
+}
+
+@media (max-width: 640px) {
+  .terminal-body { padding: 24px 20px; }
+  .contact-node { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .node-label { min-width: auto; }
+}
 
 /* ========== FOOTER ========== */
 footer {

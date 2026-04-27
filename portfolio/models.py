@@ -16,8 +16,6 @@ class Profile(models.Model):
         default="Building intelligent, beautiful, and user-friendly apps that make life easier."
     )
     email = models.EmailField(default="abiralkhatiwada37@gmail.com")
-    github = models.URLField(default="https://github.com/abiralkhatiwada")
-    linkedin = models.URLField(default="https://www.linkedin.com/in/abiral-khatiwada-/")
     profile_image = models.ImageField(upload_to="profile/", blank=True, null=True)
 
     class Meta:
@@ -86,3 +84,17 @@ class BlogPost(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+
+class SocialLink(models.Model):
+    """Dynamic social media links for the profile."""
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="social_links")
+    platform = models.CharField(max_length=50, help_text="e.g. GitHub, LinkedIn, Twitter, Instagram, etc.")
+    url = models.URLField()
+    order = models.PositiveIntegerField(default=0, help_text="Display order (lower = first)")
+
+    class Meta:
+        ordering = ["order", "platform"]
+
+    def __str__(self):
+        return f"{self.platform} - {self.profile.name}"
