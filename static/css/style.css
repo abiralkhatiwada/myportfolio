@@ -717,50 +717,92 @@ nav#navbar:hover::after { width: 100%; }
   letter-spacing: 0.1em;
 }
 
-/* ========== SKILLS SECTION ========== */
+/* ========== SKILLS SECTION (GRID UPGRADE) ========== */
+
 .skills {
   background: var(--bg-deep);
   text-align: center;
 }
 
-.skill-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+/* 🔥 GRID LAYOUT (this is the fix) */
+.skills-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.skill {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  padding: 10px 20px;
-  border-radius: 3px;
-  border: 1px solid var(--line-mid);
+/* Each category box */
+.skill-group {
+  text-align: left;
   background: var(--bg-card);
-  color: var(--text-300);
-  cursor: default;
-  transition: all var(--t-fast) var(--ease-out);
+  border: 1px solid var(--line-mid);
+  border-radius: 8px;
+  padding: 20px;
+  transition: all var(--t-mid) var(--ease-out);
   position: relative;
   overflow: hidden;
 }
 
-.skill::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 0; height: 1px;
-  background: var(--acid);
-  transition: width var(--t-mid) var(--ease-out);
+/* Hover effect */
+.skill-group:hover {
+  border-color: var(--line-bright);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 30px var(--acid-ghost);
 }
 
+/* Top accent line */
+.skill-group::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--acid), var(--amber));
+  transition: width var(--t-slow) var(--ease-out);
+}
+
+.skill-group:hover::before {
+  width: 100%;
+}
+
+/* Category title */
+.skill-category {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--acid);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* Skill tags */
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 8px 14px;
+  border-radius: 3px;
+  border: 1px solid var(--line-mid);
+  background: var(--bg-surface);
+  color: var(--text-300);
+  transition: all var(--t-fast) var(--ease-out);
+}
+
+/* Hover on individual skill */
 .skill:hover {
   border-color: var(--acid-dim);
   color: var(--acid);
   background: var(--acid-ghost);
 }
-.skill:hover::before { width: 100%; }
-
 /* ========== BLOG PREVIEW ========== */
 .blog-preview {
   padding: var(--pad-section);
