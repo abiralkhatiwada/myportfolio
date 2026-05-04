@@ -34,11 +34,26 @@ class Profile(models.Model):
 
 class Skill(models.Model):
     """A skill to display in the Skills section."""
+
+    CATEGORY_CHOICES = [
+        ('core', 'Core'),
+        ('backend', 'Backend'),
+        ('database', 'Database'),
+        ('tools', 'Tools'),
+        ('frontend', 'Frontend'),
+        ('advanced', 'Advanced'),
+    ]
+
     name = models.CharField(max_length=100)
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default='core'  # IMPORTANT: prevents migration issues
+    )
     order = models.PositiveIntegerField(default=0, help_text="Display order (lower = first)")
 
     class Meta:
-        ordering = ["order", "name"]
+        ordering = ["category", "order", "name"]
 
     def __str__(self):
         return self.name
