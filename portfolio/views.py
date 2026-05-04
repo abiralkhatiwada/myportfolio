@@ -2,16 +2,21 @@ from django.shortcuts import render, get_object_or_404
 from .models import Profile, Skill, Project, BlogPost
 
 
+from collections import defaultdict
+
 def home(request):
-    """Render the portfolio homepage with all sections."""
     profile = Profile.objects.first()
     skills = Skill.objects.all()
     projects = Project.objects.all()
     recent_posts = BlogPost.objects.filter(is_published=True)[:3]
 
+    grouped_skills = defaultdict(list)
+    for skill in skills:
+        grouped_skills[skill.category].append(skill)
+
     context = {
         "profile": profile,
-        "skills": skills,
+        "grouped_skills": dict(grouped_skills),
         "projects": projects,
         "recent_posts": recent_posts,
     }

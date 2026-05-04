@@ -1,12 +1,26 @@
-<!-- Skills Section Component -->
 <section id="skills" class="skills">
     <h2 class="section-title">Skills</h2>
     <p class="section-subtitle">Technologies & tools I work with</p>
-    <div class="skill-list">
-        {% for skill in skills %}
-        <div class="skill">{{ skill.name }}</div>
+
+    <div class="skills-wrapper">
+
+        {% for category, skills in grouped_skills.items %}
+        <div class="skill-group">
+
+            <h3 class="skill-category">
+                {{ category|title }}
+            </h3>
+
+            <div class="skill-list">
+                {% for skill in skills %}
+                <div class="skill">{{ skill.name }}</div>
+                {% endfor %}
+            </div>
+
+        </div>
         {% empty %}
         <p class="empty-message">Skills will be listed here soon.</p>
         {% endfor %}
+
     </div>
 </section>
