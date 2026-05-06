@@ -75,6 +75,8 @@ class Project(models.Model):
         return self.title
 
 
+from django.urls import reverse
+
 class BlogPost(models.Model):
     """A blog post with slug-based URLs."""
     title = models.CharField(max_length=300)
@@ -99,6 +101,9 @@ class BlogPost(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("portfolio:blog_detail", kwargs={"slug": self.slug})
 
 
 class SocialLink(models.Model):
