@@ -1,43 +1,47 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ profile.name|default:"Abiral Khatiwada" }} | Portfolio{% endblock %}
-{% block meta_description %}Official portfolio of Abiral Khatiwada, an IT specialist from Jhapa, Nepal. Expertise in Flutter development, CPanel management, and computer systems.{% endblock %}
+{% block title %}
+  {{ profile.name|default:'Abiral Khatiwada' }} | Portfolio
+{% endblock %}
+{% block meta_description %}
+  Official portfolio of Abiral Khatiwada, an IT specialist from Jhapa, Nepal. Expertise in Flutter development, Django Rest API, MySQL, CPanel management, and computer systems.
+{% endblock %}
 
 {% block content %}
-{% include "components/hero/hero.html" %}
-{% include "components/about/about.html" %}
-{% include "components/projects/projects.html" %}
-{% include "components/skills/skills.html" %}
+  {% include 'components/hero/hero.html' %}
+  {% include 'components/about/about.html' %}
+  {% include 'components/projects/projects.html' %}
+  {% include 'components/skills/skills.html' %}
 
-{% if recent_posts %}
-<!-- Recent Blog Posts Preview -->
-<section class="blog-preview">
-    <h2 class="section-title">Latest Blog Posts</h2>
-    <p class="section-subtitle">Thoughts, tutorials, and insights</p>
-    <div class="blog-grid">
+  {% if recent_posts %}
+    <!-- Recent Blog Posts Preview -->
+    <section class="blog-preview">
+      <h2 class="section-title">Latest Blog Posts</h2>
+      <p class="section-subtitle">Thoughts, tutorials, and insights</p>
+      <div class="blog-grid">
         {% for post in recent_posts %}
-        <a href="{% url 'portfolio:blog_detail' post.slug %}" class="blog-card">
+          <a href="{% url 'portfolio:blog_detail' post.slug %}" class="blog-card">
             {% if post.image %}
-            <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+              <img src="{{ post.image.url }}" alt="{{ post.title }}" />
             {% else %}
-            <div class="blog-card-placeholder">
+              <div class="blog-card-placeholder">
                 <span>📝</span>
-            </div>
+              </div>
             {% endif %}
             <div class="blog-card-body">
-                <time datetime="{{ post.created_at|date:'Y-m-d' }}">{{ post.created_at|date:"M d, Y" }}</time>
-                <h3>{{ post.title }}</h3>
-                <p>{{ post.excerpt|truncatewords:20 }}</p>
+              <time datetime="{{ post.created_at|date:'Y-m-d' }}">{{ post.created_at|date:'M d, Y' }}</time>
+              <h3>{{ post.title }}</h3>
+              <p>{{ post.excerpt|truncatewords:20 }}</p>
             </div>
-        </a>
+          </a>
         {% endfor %}
-    </div>
-    <div class="blog-cta">
+      </div>
+      <div class="blog-cta">
         <a href="{% url 'portfolio:blog_list' %}" class="btn btn-outline">View All Posts →</a>
-    </div>
-</section>
-{% endif %}
+      </div>
+    </section>
+  {% endif %}
 
-{% include "components/contact/contact.html" %}
+  {% include 'components/contact/contact.html' %}
 {% endblock %}
