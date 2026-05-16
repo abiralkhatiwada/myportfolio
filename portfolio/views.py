@@ -17,6 +17,7 @@ def home(request):
     context = {
         "profile": profile,
         "grouped_skills": dict(grouped_skills),
+        "skills": skills,   
         "projects": projects,
         "recent_posts": recent_posts,
     }
