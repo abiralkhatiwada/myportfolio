@@ -1,8 +1,60 @@
 {% extends "base.html" %}
 {% load static %}
+{% load portfolio_tags %}
 
 {% block title %}{{ post.title }} | {{ profile.name|default:"Abiral Khatiwada" }}{% endblock %}
-{% block meta_description %}{{ post.excerpt|truncatewords:20 }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endblock %}
+{% block meta_description %}{% if post.meta_description %}{{ post.meta_description }}{% else %}{{ post.excerpt|truncatewords:20 }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}{% endblock %}
+
+{% block extra_meta %}
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ post.title }} | {{ profile.name|default:'Abiral Khatiwada' }}" />
+    <meta property="og:description" content="{% if post.meta_description %}{{ post.meta_description }}{% else %}{{ post.excerpt|truncatewords:20 }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}" />
+    {% if post.image %}
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}" />
+    {% endif %}
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ post.title }} | {{ profile.name|default:'Abiral Khatiwada' }}" />
+    <meta name="twitter:description" content="{% if post.meta_description %}{{ post.meta_description }}{% else %}{{ post.excerpt|truncatewords:20 }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}" />
+    {% if post.image %}
+    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}" />
+    {% endif %}
+
+    <!-- Structured Data (JSON-LD) for Search Engines -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "{{ post.title|escapejs }}",
+      "description": "{% if post.meta_description %}{{ post.meta_description|escapejs }}{% else %}{{ post.excerpt|truncatewords:20|escapejs }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}",
+      {% if post.image %}
+      "image": "{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}",
+      {% endif %}
+      "datePublished": "{{ post.created_at|date:'c' }}",
+      "dateModified": "{{ post.updated_at|date:'c' }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ profile.name|default:'Abiral Khatiwada'|escapejs }}",
+        "url": "https://abiralkhatiwada.com.np"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ profile.name|default:'Abiral Khatiwada'|escapejs }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ request.build_absolute_uri }}"
+      }
+    }
+    </script>
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/blog.css' %}" />
@@ -26,7 +78,7 @@
     {% endif %}
 
     <div class="blog-detail-content">
-        {{ post.content|linebreaks }}
+        {{ post.content|markdown }}
     </div>
 
     <div class="blog-detail-footer">

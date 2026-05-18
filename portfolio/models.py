@@ -85,6 +85,11 @@ class BlogPost(models.Model):
         max_length=500,
         help_text="Short summary shown on the blog listing page."
     )
+    meta_description = models.TextField(
+        max_length=160,
+        blank=True,
+        help_text="SEO Meta Description (optional, optimal length: 150-160 characters). If blank, excerpt is used."
+    )
     content = models.TextField(help_text="Full blog post content.")
     image = models.ImageField(upload_to="blog/", blank=True, null=True)
     is_published = models.BooleanField(default=False)
