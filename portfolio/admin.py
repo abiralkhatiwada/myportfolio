@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Skill, Project, BlogPost, SocialLink
+from .models import Profile, Skill, Project, BlogPost, SocialLink, ContactInfo, Education, Experience
 
 
 class SocialLinkInline(admin.TabularInline):

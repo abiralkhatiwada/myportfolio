@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'portfolio',
     'cloudinary',
     'cloudinary_storage',
+
+    'chatbot',
 ]
 
 SITE_ID = 1
@@ -70,11 +72,12 @@ TEMPLATES = [
         'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+    'context_processors': [
+        'django.template.context_processors.request',
+        'django.contrib.auth.context_processors.auth',
+        'django.contrib.messages.context_processors.messages',
+        'portfolio.context_processors.portfolio_globals',
+    ],
         },
     },
 ]

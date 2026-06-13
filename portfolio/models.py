@@ -123,3 +123,62 @@ class SocialLink(models.Model):
 
     def __str__(self):
         return f"{self.platform} - {self.profile.name}"
+
+
+# ---------------------------------------------------------------------------
+# Contact, Education, and Experience models (merged into portfolio app)
+# ---------------------------------------------------------------------------
+
+class ContactInfo(models.Model):
+    """Contact information linked to the singleton Profile."""
+    profile = models.OneToOneField('portfolio.Profile', on_delete=models.CASCADE, related_name='contact')
+    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=30, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Contact Information"
+        verbose_name_plural = "Contact Information"
+
+    def __str__(self):
+        return f"Contact for {self.profile.name}"
+
+
+class Education(models.Model):
+    """Educational entry for the portfolio."""
+    profile = models.ForeignKey('portfolio.Profile', on_delete=models.CASCADE, related_name='educations')
+    institution = models.CharField(max_length=200)
+    degree = models.CharField(max_length=200)
+    field_of_study = models.CharField(max_length=200, blank=True)
+    start_date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)  # null = present
+    description = models.TextField(blank=True)
+    order = models.PositiveIntegerField(default=0, help_text="Display order (lower = first)")
+
+    class Meta:
+        ordering = ["order", "-start_date"]
+        verbose_name = "Education"
+        verbose_name_plural = "Education"
+
+    def __str__(self):
+        return f"{self.institution} – {self.degree}"
+
+
+class Experience(models.Model):
+    """Work experience entry for the portfolio."""
+    profile = models.ForeignKey('portfolio.Profile', on_delete=models.CASCADE, related_name='experiences')
+    company = models.CharField(max_length=200)
+    role = models.CharField(max_length=200)
+    location = models.CharField(max_length=200, blank=True)
+    start_date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)  # null = present
+    description = models.TextField(blank=True)
+    order = models.PositiveIntegerField(default=0, help_text="Display order (lower = first)")
+
+    class Meta:
+        ordering = ["order", "-start_date"]
+        verbose_name = "Experience"
+        verbose_name_plural = "Experience"
+
+    def __str__(self):
+        return f"{self.company} – {self.role}"
