@@ -1,2 +1,2 @@
 ﻿# myportfolio
-**A portfolio for myself.**
+**A portfolio made by me for myself.**
