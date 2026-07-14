@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ app.title }} | Apps{% endblock %}
+{% block meta_description %}{{ app.excerpt }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/apps.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="app-detail-page">
+    <a href="{% url 'portfolio:app_list' %}" style="display:inline-block; margin-bottom:2rem; font-family:var(--font-mono); color:var(--text-300);">← Back to Apps</a>
+    
+    <div class="app-detail-header">
+        {% if app.icon %}
+        <img src="{{ app.icon.url }}" alt="{{ app.title }} Icon" class="app-detail-icon" />
+        {% endif %}
+        <div class="app-detail-title">
+            <h1>{{ app.title }}</h1>
+            <p style="color:var(--text-300); font-family:var(--font-mono);">
+                Published: {{ app.created_at|date:"M d, Y" }}
+            </p>
+        </div>
+    </div>
+
+    <div class="app-detail-content">
+        {{ app.description|linebreaks }}
+    </div>
+
+    {% if app.apk_file %}
+    <div style="margin-top: 2rem;">
+        <a href="{{ app.apk_file.url }}" class="btn-download" download>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download APK
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

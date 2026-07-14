@@ -123,3 +123,35 @@ class SocialLink(models.Model):
 
     def __str__(self):
         return f"{self.platform} - {self.profile.name}"
+
+
+class FlutterApp(models.Model):
+    """A Flutter application with downloadable APK."""
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
+    excerpt = models.TextField(
+        max_length=500,
+        help_text="Short summary shown on the app listing page."
+    )
+    description = models.TextField(help_text="Detailed description of the app.")
+    icon = models.ImageField(upload_to="apps/icons/", blank=True, null=True)
+    screenshot = models.ImageField(upload_to="apps/screenshots/", blank=True, null=True)
+    apk_file = models.FileField(upload_to="apps/apks/", help_text="Upload the .apk file here.")
+    is_published = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(default=0, help_text="Display order (lower = first)")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["order", "-created_at"]
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("portfolio:app_detail", kwargs={"slug": self.slug})
