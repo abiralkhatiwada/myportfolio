@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Apps | {{ profile.name|default:"Abiral Khatiwada" }}{% endblock %}
+{% block meta_description %}Explore Flutter applications and projects by Abiral Khatiwada.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/apps.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="apps-page">
+    <div class="apps-header">
+        <h1>Flutter Apps</h1>
+        <p>Mobile applications built with Flutter and Dart</p>
+    </div>
+
+    {% for app in apps %}
+    <section class="app-section {% if forloop.counter|divisibleby:2 %}alt{% endif %}">
+        <div class="app-image-wrapper">
+            {% if app.screenshot %}
+                <img src="{{ app.screenshot.url }}" alt="{{ app.title }} Screenshot" />
+            {% elif app.icon %}
+                <img src="{{ app.icon.url }}" alt="{{ app.title }} Icon" />
+            {% else %}
+                <div style="color: var(--text-300); font-family: var(--font-mono);">[NO PREVIEW AVAILABLE]</div>
+            {% endif %}
+        </div>
+        <div class="app-content-wrapper">
+            <h2>{{ app.title }}</h2>
+            <p>{{ app.excerpt }}</p>
+            <div class="app-actions">
+                {% if app.apk_file %}
+                <a href="{{ app.apk_file.url }}" class="btn-download" download>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Download APK
+                </a>
+                {% endif %}
+                <a href="{{ app.get_absolute_url }}" class="btn-details">More Details</a>
+            </div>
+        </div>
+    </section>
+    {% empty %}
+    <div style="text-align:center; padding: 100px 20px;">
+        <h2 style="font-family: var(--font-display); color: var(--text-200);">No Apps Available Yet</h2>
+        <a href="{% url 'portfolio:home' %}" class="btn-details" style="margin-top:20px;">← Back Home</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

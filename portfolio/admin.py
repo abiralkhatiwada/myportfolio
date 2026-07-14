@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Skill, Project, BlogPost, SocialLink
+from .models import Profile, Skill, Project, BlogPost, SocialLink, FlutterApp
 
 
 class SocialLinkInline(admin.TabularInline):
@@ -39,3 +39,13 @@ class BlogPostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     list_editable = ("is_published",)
     ordering = ("-created_at",)
+
+
+@admin.register(FlutterApp)
+class FlutterAppAdmin(admin.ModelAdmin):
+    list_display = ("title", "is_published", "order", "created_at", "updated_at")
+    list_filter = ("is_published", "created_at")
+    search_fields = ("title", "description", "excerpt")
+    prepopulated_fields = {"slug": ("title",)}
+    list_editable = ("is_published", "order")
+    ordering = ("order", "-created_at")

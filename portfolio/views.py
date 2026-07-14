@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Profile, Skill, Project, BlogPost
+from .models import Profile, Skill, Project, BlogPost, FlutterApp
 
 
 from collections import defaultdict
@@ -46,3 +46,27 @@ def blog_detail(request, slug):
         "post": post,
     }
     return render(request, "pages/blog_detail.html", context)
+
+
+def app_list(request):
+    """List all published Flutter apps."""
+    profile = Profile.objects.first()
+    apps = FlutterApp.objects.filter(is_published=True)
+
+    context = {
+        "profile": profile,
+        "apps": apps,
+    }
+    return render(request, "pages/app_list.html", context)
+
+
+def app_detail(request, slug):
+    """Display a single Flutter app."""
+    profile = Profile.objects.first()
+    app = get_object_or_404(FlutterApp, slug=slug, is_published=True)
+
+    context = {
+        "profile": profile,
+        "app": app,
+    }
+    return render(request, "pages/app_detail.html", context)
