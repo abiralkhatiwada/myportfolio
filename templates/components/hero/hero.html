@@ -1,5 +1,7 @@
 <!-- Hero Section Component -->
 <section id="home" class="hero">
+
+    <!-- Text content (normal flow, left side) -->
     <div class="hero-glow"></div>
     <div class="hero-content">
         <p class="hero-greeting">Hello, I'm</p>
@@ -12,4 +14,15 @@
             <a href="#contact" class="btn btn-outline">Get In Touch</a>
         </div>
     </div>
+
+    <!-- Circular profile photo (absolutely positioned on the right) -->
+    <div class="hero-photo">
+        {% if profile and profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}"
+                 alt="{{ profile.name }}" />
+        {% else %}
+            <div class="hero-photo-placeholder">AK</div>
+        {% endif %}
+    </div>
+
 </section>

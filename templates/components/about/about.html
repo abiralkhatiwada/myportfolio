@@ -1,15 +1,59 @@
 {% load static %}
 <!-- About Section Component -->
 <section id="about" class="about">
-    <div class="about-image-wrapper">
-        {% if profile.profile_image %}
-        <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" />
-        {% else %}
-        <div class="about-avatar">
-            <span>AK</span>
+
+    <!--
+    ═══════════════════════════════════════════════════════════
+    HOW TO EDIT THE JSON DATA BLOCK
+    ═══════════════════════════════════════════════════════════
+
+    All values below come from your Django Admin panel.
+    To edit them:
+
+      1. Go to  /admin
+      2. Click "Profile" under the Portfolio section
+      3. Edit any of these fields:
+            • name        → profile.name
+            • title       → profile.title
+            • email       → profile.email
+            • bio         → profile.bio (displayed in "about" field below)
+
+    To add/remove social links:
+      1. Go to /admin → Profile
+      2. Scroll to "Social Links" at the bottom of the form
+      3. Add, edit, or delete entries there
+
+    To add/edit Skills:
+      • Go to /admin → Skills
+
+    To add/edit Projects:
+      • Go to /admin → Projects
+
+    The skill count and project count update automatically.
+    ═══════════════════════════════════════════════════════════
+    -->
+
+    <!-- JSON Code Block (replaces the photo) -->
+    <div class="about-json-wrapper">
+        <div class="about-json-title-bar">
+            <span class="about-json-dot"></span>
+            <span class="about-json-dot"></span>
+            <span class="about-json-dot"></span>
+            <span class="about-json-filename">profile.json</span>
         </div>
-        {% endif %}
+        <div class="about-json-body"><span class="j-brace">{</span>
+  <span class="j-key">"name"</span><span class="j-brace">:</span>        <span class="j-str">"{% if profile %}{{ profile.name }}{% else %}Abiral Khatiwada{% endif %}"</span><span class="j-comma">,</span>
+  <span class="j-key">"role"</span><span class="j-brace">:</span>        <span class="j-str">"{% if profile %}{{ profile.title }}{% else %}Flutter Developer{% endif %}"</span><span class="j-comma">,</span>
+  <span class="j-key">"location"</span><span class="j-brace">:</span>    <span class="j-str">"Jhapa, Nepal"</span><span class="j-comma">,</span>
+  <span class="j-key">"available"</span><span class="j-brace">:</span>   <span class="j-bool">true</span><span class="j-comma">,</span>
+  <span class="j-key">"email"</span><span class="j-brace">:</span>       <span class="j-str">"{% if profile %}{{ profile.email }}{% else %}abiralkhatiwada37@gmail.com{% endif %}"</span><span class="j-comma">,</span>
+  <span class="j-key">"projects"</span><span class="j-brace">:</span>    <span class="j-num">{{ projects|length }}</span><span class="j-comma">,</span>
+  <span class="j-key">"skills"</span><span class="j-brace">:</span>      <span class="j-num">{{ skills|length }}</span><span class="j-comma">,</span>
+  <span class="j-key">"focus"</span><span class="j-brace">:</span>       <span class="j-str">"Flutter &amp; AI"</span>
+<span class="j-brace">}</span></div>
     </div>
+
+    <!-- Text content -->
     <div class="about-text">
         <h2 class="section-title">About Me</h2>
         <p>{% if profile %}{{ profile.bio }}{% else %}I'm a passionate Flutter developer and AI enthusiast who loves

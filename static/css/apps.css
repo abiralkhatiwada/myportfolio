@@ -1,27 +1,31 @@
-/* apps.css */
+/* apps.css (Neo-Brutalist) */
 .apps-page {
     width: 100%;
     padding: 0;
     margin: 0;
+    background: var(--bg-main);
 }
 
 .apps-header {
     text-align: center;
-    padding: 120px 20px 60px;
-    background: var(--bg-void);
+    padding: calc(72px + 60px) 24px 60px;
 }
 
 .apps-header h1 {
-    font-family: var(--font-display);
-    font-size: 3rem;
-    color: var(--text-100);
-    margin-bottom: 1rem;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
 }
 
 .apps-header p {
-    color: var(--acid);
-    font-family: var(--font-mono);
-    font-size: 1.1rem;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 .app-section {
@@ -30,6 +34,7 @@
     align-items: stretch;
     width: 100%;
     min-height: 80vh;
+    border-top: 2px solid var(--border-main);
 }
 
 .app-section.alt {
@@ -40,24 +45,45 @@
     flex: 1;
     position: relative;
     overflow: hidden;
-    background: var(--bg-deep);
+    background: var(--bg-main);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 3rem;
+    border-right: 2px solid var(--border-main);
+}
+.app-section.alt .app-image-wrapper {
+    border-right: none;
+    border-left: 2px solid var(--border-main);
+}
+
+/* Add geometric background shape to images in apps */
+.app-image-wrapper::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: var(--accent);
+    transform: rotate(15deg);
+    z-index: 0;
+    opacity: 0.1;
 }
 
 .app-image-wrapper img {
     max-width: 100%;
     max-height: 80vh;
     object-fit: contain;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: transform var(--t-slow) var(--ease-out);
+    position: relative;
+    z-index: 1;
+    border: 2px solid var(--border-main);
+    box-shadow: var(--shadow-hard-lg);
+    background: var(--bg-card);
+    transition: transform var(--t-mid) ease, box-shadow var(--t-mid) ease;
 }
 
 .app-image-wrapper:hover img {
-    transform: scale(1.02);
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0px var(--border-main);
 }
 
 .app-content-wrapper {
@@ -67,104 +93,125 @@
     justify-content: center;
     padding: 4rem 10%;
     background: var(--bg-card);
-    border-top: 1px solid var(--line-dim);
-    border-bottom: 1px solid var(--line-dim);
 }
 
 .app-content-wrapper h2 {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    color: var(--text-100);
-    margin-bottom: 1rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    line-height: 1;
 }
 
 .app-content-wrapper p {
-    font-size: 1.1rem;
-    color: var(--text-200);
-    margin-bottom: 2rem;
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
     line-height: 1.8;
 }
 
 .app-actions {
     display: flex;
-    gap: 1rem;
+    gap: 16px;
     flex-wrap: wrap;
 }
 
 .btn-download {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1.5rem;
-    background: var(--acid);
-    color: var(--bg-void);
-    font-family: var(--font-mono);
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--accent);
+    color: var(--text-light);
+    font-family: var(--font-main);
+    font-size: 14px;
     font-weight: 700;
+    letter-spacing: 0.02em;
+    border-radius: 0;
+    border: 2px solid var(--border-main);
+    box-shadow: var(--shadow-hard);
     text-transform: uppercase;
-    border-radius: 4px;
-    transition: all var(--t-fast) var(--ease-out);
+    transition: all var(--t-mid) ease;
 }
 
 .btn-download:hover {
-    background: var(--text-100);
-    box-shadow: 0 0 15px var(--acid-glow);
+    background: var(--accent-hover);
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-hard-hover);
+    color: var(--text-light);
 }
 
 .btn-details {
     display: inline-flex;
     align-items: center;
-    padding: 0.8rem 1.5rem;
-    border: 1px solid var(--acid);
-    color: var(--acid);
-    font-family: var(--font-mono);
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    font-size: 14px;
     font-weight: 700;
+    letter-spacing: 0.02em;
+    border-radius: 0;
+    border: 2px solid var(--border-main);
+    box-shadow: var(--shadow-hard);
     text-transform: uppercase;
-    border-radius: 4px;
-    transition: all var(--t-fast) var(--ease-out);
+    transition: all var(--t-mid) ease;
 }
 
 .btn-details:hover {
-    background: var(--acid-ghost);
-    color: var(--text-100);
+    background: var(--text-primary);
+    color: var(--bg-card);
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-hard-hover);
 }
 
 /* Detail page specific */
 .app-detail-page {
-    padding: 120px 5% 80px;
-    max-width: 1200px;
+    padding: calc(72px + 60px) 24px 80px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
 .app-detail-header {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    margin-bottom: 3rem;
+    gap: 24px;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--border-main);
 }
 
 .app-detail-icon {
-    width: 100px;
-    height: 100px;
-    border-radius: 20px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
-    background: var(--bg-surface);
+    background: var(--bg-card);
+    border: 2px solid var(--border-main);
+    box-shadow: var(--shadow-hard);
 }
 
 .app-detail-title h1 {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    color: var(--text-100);
-    margin-bottom: 0.5rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
 }
 
 .app-detail-content {
-    background: var(--bg-surface);
-    padding: 3rem;
-    border-radius: 8px;
-    border: 1px solid var(--line-dim);
-    margin-bottom: 3rem;
+    background: var(--bg-card);
+    padding: 40px;
+    border: 2px solid var(--border-main);
+    box-shadow: var(--shadow-hard-lg);
+    margin-bottom: 40px;
     line-height: 1.8;
-    color: var(--text-200);
+    color: var(--text-secondary);
+    font-size: 17px;
 }
 
 @media (max-width: 900px) {
@@ -176,9 +223,14 @@
     .app-image-wrapper {
         padding: 2rem;
         min-height: 50vh;
+        border-right: none;
+        border-bottom: 2px solid var(--border-main);
+    }
+    .app-section.alt .app-image-wrapper {
+        border-left: none;
     }
     
     .app-content-wrapper {
-        padding: 3rem 5%;
+        padding: 40px 24px;
     }
 }
