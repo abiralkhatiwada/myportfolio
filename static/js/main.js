@@ -18,15 +18,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Navbar scroll effect
+  // Navbar scroll effect (Updated for Neo-Brutalist Light Theme)
   const nav = document.getElementById("navbar");
   if (nav) {
     window.addEventListener("scroll", function () {
       if (window.scrollY > 50) {
-        nav.style.background = "rgba(3, 7, 18, 0.95)";
-        nav.style.boxShadow = "0 4px 32px rgba(0, 0, 0, 0.5)";
+        // Frosted glass effect matching the brutalist aesthetic
+        nav.style.background = "rgba(240, 240, 240, 0.95)";
+        nav.style.backdropFilter = "blur(8px)";
+        nav.style.webkitBackdropFilter = "blur(8px)";
+        // Hard offset shadow instead of a soft glow
+        nav.style.boxShadow = "0 4px 0px #111111";
       } else {
-        nav.style.background = "rgba(3, 7, 18, 0.82)";
+        // Revert to clean white static state
+        nav.style.background = "#FFFFFF";
+        nav.style.backdropFilter = "none";
+        nav.style.webkitBackdropFilter = "none";
         nav.style.boxShadow = "none";
       }
     });
