@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
 
 
 class Profile(models.Model):
@@ -136,7 +137,11 @@ class FlutterApp(models.Model):
     description = models.TextField(help_text="Detailed description of the app.")
     icon = models.ImageField(upload_to="apps/icons/", blank=True, null=True)
     screenshot = models.ImageField(upload_to="apps/screenshots/", blank=True, null=True)
-    apk_file = models.FileField(upload_to="apps/apks/", help_text="Upload the .apk file here.")
+    apk_file = models.FileField(
+        upload_to="apps/apks/", 
+        storage=RawMediaCloudinaryStorage(),
+        help_text="Upload the .apk file here."
+    )
     is_published = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0, help_text="Display order (lower = first)")
     created_at = models.DateTimeField(auto_now_add=True)
