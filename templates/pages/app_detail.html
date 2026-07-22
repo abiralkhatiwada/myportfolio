@@ -24,6 +24,17 @@
         </div>
     </div>
 
+    <!-- NEW: App Image Section -->
+    {% if app.screenshot or app.icon %}
+    <div class="app-detail-hero-image" style="margin: 2.5rem 0; text-align: center;">
+        {% if app.screenshot %}
+            <img src="{{ app.screenshot.url }}" alt="{{ app.title }} Screenshot" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);" />
+        {% else %}
+            <img src="{{ app.icon.url }}" alt="{{ app.title }} Icon" style="width: 180px; height: 180px; border-radius: 30px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.4);" />
+        {% endif %}
+    </div>
+    {% endif %}
+
     <div class="app-detail-content">
         {{ app.description|linebreaks }}
     </div>

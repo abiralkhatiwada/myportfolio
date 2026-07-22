@@ -17,15 +17,8 @@
 
     {% for app in apps %}
     <section class="app-section {% if forloop.counter|divisibleby:2 %}alt{% endif %}">
-        <div class="app-image-wrapper">
-            {% if app.screenshot %}
-                <img src="{{ app.screenshot.url }}" alt="{{ app.title }} Screenshot" />
-            {% elif app.icon %}
-                <img src="{{ app.icon.url }}" alt="{{ app.title }} Icon" />
-            {% else %}
-                <div style="color: var(--text-300); font-family: var(--font-mono);">[NO PREVIEW AVAILABLE]</div>
-            {% endif %}
-        </div>
+        <!-- Image wrapper removed from here -->
+        
         <div class="app-content-wrapper">
             <h2>{{ app.title }}</h2>
             <p>{{ app.excerpt }}</p>
