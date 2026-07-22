@@ -3,8 +3,8 @@ from django import forms
 
 from django.conf import settings
 from .models import Profile, Skill, Project, BlogPost, SocialLink, FlutterApp
-import cloudinary
-import cloudinary.uploader
+import os
+from django.contrib import admin
 
 
 class SocialLinkInline(admin.TabularInline):
@@ -67,6 +67,6 @@ class FlutterAppAdmin(admin.ModelAdmin):
         js = ('https://upload-widget.cloudinary.com/global/all.js',)
 
     def changeform_view(self, request, *args, **kwargs):
-        extra = {'cloudinary_cloud_name': settings.CLOUDINARY_CLOUD_NAME}
+        extra = {'cloudinary_cloud_name': os.environ.get('CLOUDINARY_CLOUD_NAME', '')}
         kwargs.setdefault('extra_context', {}).update(extra)
         return super().changeform_view(request, *args, **kwargs)
