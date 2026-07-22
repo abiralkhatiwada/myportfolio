@@ -1,0 +1,46 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_field_sets %}
+{{ block.super }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const apkField = document.querySelector('input[name="apk_file"]');
+    if (!apkField) return;
+
+    // Hide the default file input
+    apkField.style.display = 'none';
+
+    // Create upload button
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.innerText = '📦 Upload APK via Cloudinary';
+    btn.style.cssText = 'padding:8px 16px; background:#417690; color:white; border:none; cursor:pointer; border-radius:4px;';
+
+    const statusDiv = document.createElement('div');
+    statusDiv.style.marginTop = '8px';
+
+    apkField.parentNode.insertBefore(btn, apkField);
+    apkField.parentNode.insertBefore(statusDiv, apkField);
+
+    btn.addEventListener('click', function() {
+        cloudinary.openUploadWidget({
+            cloudName: '{{ cloudinary_cloud_name }}',
+            uploadPreset: 'apk_uploads',   // 👈 create this preset in Cloudinary dashboard
+            resourceType: 'raw',            // required for APK files
+            sources: ['local'],
+            multiple: false,
+            clientAllowedFormats: ['apk'],
+        }, function(error, result) {
+            if (!error && result && result.event === 'success') {
+                // Store the Cloudinary public_id or secure_url
+                apkField.value = result.info.secure_url;
+                apkField.style.display = 'block';
+                statusDiv.innerHTML = '✅ Uploaded: <a href="' + result.info.secure_url + '" target="_blank">' + result.info.original_filename + '.apk</a>';
+                btn.innerText = '🔄 Re-upload APK';
+            }
+        });
+    });
+});
+</script>
+<script src="https://upload-widget.cloudinary.com/global/all.js"></script>
+{% endblock %}

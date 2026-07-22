@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
-
+import os
+from django.core.files.storage import FileSystemStorage
 
 class Profile(models.Model):
     """Singleton model for the site owner's profile."""
@@ -124,7 +125,11 @@ class SocialLink(models.Model):
     def __str__(self):
         return f"{self.platform} - {self.profile.name}"
 
-
+def get_apk_storage():
+    if os.environ.get('CLOUDINARY_CLOUD_NAME'):
+        from cloudinary_storage.storage import RawMediaCloudinaryStorage
+        return RawMediaCloudinaryStorage()
+    return FileSystemStorage()
 class FlutterApp(models.Model):
     """A Flutter application with downloadable APK."""
     title = models.CharField(max_length=200)
@@ -136,7 +141,11 @@ class FlutterApp(models.Model):
     description = models.TextField(help_text="Detailed description of the app.")
     icon = models.ImageField(upload_to="apps/icons/", blank=True, null=True)
     screenshot = models.ImageField(upload_to="apps/screenshots/", blank=True, null=True)
-    apk_file = models.FileField(upload_to="apps/apks/", help_text="Upload the .apk file here.")
+    apk_file = models.FileField(
+        upload_to="apps/apks/", 
+        storage=get_apk_storage,
+        help_text="Upload the .apk file here."
+    )
     is_published = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0, help_text="Display order (lower = first)")
     created_at = models.DateTimeField(auto_now_add=True)

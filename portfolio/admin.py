@@ -1,5 +1,10 @@
 from django.contrib import admin
+from django import forms
+
+from django.conf import settings
 from .models import Profile, Skill, Project, BlogPost, SocialLink, FlutterApp
+import cloudinary
+import cloudinary.uploader
 
 
 class SocialLinkInline(admin.TabularInline):
@@ -40,6 +45,13 @@ class BlogPostAdmin(admin.ModelAdmin):
     list_editable = ("is_published",)
     ordering = ("-created_at",)
 
+class FlutterAppAdminForm(forms.ModelForm):
+    class Meta:
+        model = FlutterApp
+        fields = '__all__'
+        widgets = {
+            # This field will be replaced by Cloudinary's upload widget
+        }
 
 @admin.register(FlutterApp)
 class FlutterAppAdmin(admin.ModelAdmin):
@@ -49,3 +61,12 @@ class FlutterAppAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     list_editable = ("is_published", "order")
     ordering = ("order", "-created_at")
+
+    class Media:
+        # Load Cloudinary's upload widget JS
+        js = ('https://upload-widget.cloudinary.com/global/all.js',)
+
+    def changeform_view(self, request, *args, **kwargs):
+        extra = {'cloudinary_cloud_name': settings.CLOUDINARY_CLOUD_NAME}
+        kwargs.setdefault('extra_context', {}).update(extra)
+        return super().changeform_view(request, *args, **kwargs)
