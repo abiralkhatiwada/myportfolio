@@ -11,10 +11,14 @@ class VercelWSGIMiddleware:
         self.app = app
 
     def __call__(self, environ, start_response):
-        path_info = environ.get('PATH_INFO', '')
-        
-        # Debug endpoint to inspect all headers and environment variables
-        if 'debug-environ' in path_info:
+        # Check if 'debug-environ' appears in any WSGI environment variable
+        show_debug = False
+        for k, v in environ.items():
+            if isinstance(v, str) and 'debug-environ' in v:
+                show_debug = True
+                break
+                
+        if show_debug:
             status = '200 OK'
             response_headers = [('Content-type', 'text/plain; charset=utf-8')]
             start_response(status, response_headers)
