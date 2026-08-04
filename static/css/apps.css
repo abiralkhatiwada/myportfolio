@@ -33,7 +33,7 @@
     flex-direction: row;
     align-items: stretch;
     width: 100%;
-    min-height: 80vh;
+    min-height: auto;
     border-top: 2px solid var(--border-main);
 }
 
@@ -41,8 +41,8 @@
     flex-direction: row-reverse;
 }
 
-.app-image-wrapper {
-    flex: 1;
+.app-icon-wrapper {
+    flex: 0 0 350px;
     position: relative;
     overflow: hidden;
     background: var(--bg-main);
@@ -52,38 +52,26 @@
     padding: 3rem;
     border-right: 2px solid var(--border-main);
 }
-.app-section.alt .app-image-wrapper {
+
+.app-section.alt .app-icon-wrapper {
     border-right: none;
     border-left: 2px solid var(--border-main);
 }
 
-/* Add geometric background shape to images in apps */
-.app-image-wrapper::before {
-    content: '';
-    position: absolute;
-    width: 150%;
-    height: 150%;
-    background: var(--accent);
-    transform: rotate(15deg);
-    z-index: 0;
-    opacity: 0.1;
-}
-
-.app-image-wrapper img {
-    max-width: 100%;
-    max-height: 80vh;
-    object-fit: contain;
-    position: relative;
-    z-index: 1;
+.app-list-icon {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 28px;
     border: 2px solid var(--border-main);
-    box-shadow: var(--shadow-hard-lg);
+    box-shadow: var(--shadow-hard);
     background: var(--bg-card);
     transition: transform var(--t-mid) ease, box-shadow var(--t-mid) ease;
 }
 
-.app-image-wrapper:hover img {
+.app-icon-wrapper:hover .app-list-icon {
     transform: translate(-4px, -4px);
-    box-shadow: 12px 12px 0px var(--border-main);
+    box-shadow: 8px 8px 0px var(--border-main);
 }
 
 .app-content-wrapper {
@@ -171,8 +159,19 @@
 /* Detail page specific */
 .app-detail-page {
     padding: calc(72px + 60px) 24px 80px;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
+}
+
+.app-detail-container {
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+}
+
+.app-detail-info {
+    flex: 1;
+    min-width: 0; /* Prevents flex items from overflowing */
 }
 
 .app-detail-header {
@@ -214,23 +213,55 @@
     font-size: 17px;
 }
 
+.app-detail-screenshot-wrapper {
+    flex: 0 0 320px;
+    display: flex;
+    justify-content: center;
+}
+
+.app-detail-screenshot {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    border-radius: 20px;
+    border: 2px solid var(--border-main);
+    box-shadow: var(--shadow-hard-lg);
+    background: var(--bg-card);
+}
+
 @media (max-width: 900px) {
     .app-section, .app-section.alt {
         flex-direction: column;
         min-height: auto;
     }
     
-    .app-image-wrapper {
-        padding: 2rem;
-        min-height: 50vh;
+    .app-icon-wrapper {
+        flex: none;
+        width: 100%;
+        padding: 3rem 2rem;
         border-right: none;
         border-bottom: 2px solid var(--border-main);
     }
-    .app-section.alt .app-image-wrapper {
+    
+    .app-section.alt .app-icon-wrapper {
         border-left: none;
     }
     
     .app-content-wrapper {
         padding: 40px 24px;
+    }
+
+    .app-detail-container {
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+
+    .app-detail-screenshot-wrapper {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .app-detail-screenshot {
+        max-width: 280px;
     }
 }

@@ -5,7 +5,7 @@
 {% block meta_description %}Explore Flutter applications and projects by Abiral Khatiwada.{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/apps.css' %}" />
+<link rel="stylesheet" href="{% static 'css/apps.css' %}?v=1.0.3" />
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,11 @@
 
     {% for app in apps %}
     <section class="app-section {% if forloop.counter|divisibleby:2 %}alt{% endif %}">
-        <!-- Image wrapper removed from here -->
+        {% if app.icon %}
+        <div class="app-icon-wrapper">
+            <img src="{{ app.icon.url }}" alt="{{ app.title }} Icon" class="app-list-icon" />
+        </div>
+        {% endif %}
         
         <div class="app-content-wrapper">
             <h2>{{ app.title }}</h2>
