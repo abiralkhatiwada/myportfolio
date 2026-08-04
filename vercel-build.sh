@@ -2,7 +2,7 @@
 
 # Install dependencies
 echo "Installing dependencies..."
-pip install -r requirements.txt
+pip install --break-system-packages -r requirements.txt
 
 # Create the staticfiles directory
 mkdir -p staticfiles
