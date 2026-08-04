@@ -12,6 +12,17 @@ class VercelWSGIMiddleware:
 
     def __call__(self, environ, start_response):
         path_info = environ.get('PATH_INFO', '')
+        
+        # Debug endpoint to inspect all headers and environment variables
+        if 'debug-environ' in path_info:
+            status = '200 OK'
+            response_headers = [('Content-type', 'text/plain; charset=utf-8')]
+            start_response(status, response_headers)
+            
+            lines = [f"{k}: {v}" for k, v in sorted(environ.items()) if isinstance(v, (str, int, float, bool))]
+            output = "\n".join(lines).encode('utf-8')
+            return [output]
+            
         forwarded_uri = environ.get('HTTP_X_FORWARDED_URI', '')
         
         print(f"[VercelMiddleware] Original PATH_INFO: {path_info}")
