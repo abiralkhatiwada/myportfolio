@@ -70,3 +70,32 @@ def app_detail(request, slug):
         "app": app,
     }
     return render(request, "pages/app_detail.html", context)
+
+from django.core.mail import send_mail
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.conf import settings
+
+def contact_submit(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+        
+        subject = f"New Portfolio Contact from {name}"
+        body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+        
+        try:
+            send_mail(
+                subject,
+                body,
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+            messages.success(request, "Your message has been sent successfully!")
+        except Exception as e:
+            messages.error(request, "An error occurred. Please try again.")
+            
+    return redirect("portfolio:home")
+
