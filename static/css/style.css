@@ -299,13 +299,14 @@ nav#navbar::after { display: none; } /* Kill gradient line */
 .hero-greeting::before, .hero-greeting::after { display: none; }
 
 .hero h1 {
-  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-size: clamp(3rem, 7vw, 7.5rem);
   font-weight: 900;
   color: var(--text-primary);
   margin-bottom: 16px;
   line-height: 0.9;
   letter-spacing: -0.06em;
   text-transform: uppercase;
+  word-wrap: break-word;
 }
 
 .hero h1 .highlight { color: var(--text-primary); }
@@ -1164,6 +1165,30 @@ footer::before {
 [data-reveal-delay="4"] { transition-delay: 0.4s; }
 
 /* ========== RESPONSIVE ========== */
+@media (max-width: 1100px) {
+  .hero {
+    padding-right: 24px;
+    padding-left: 24px;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-content { width: 100%; }
+  .hero-photo {
+    position: relative;
+    right: auto; top: auto;
+    transform: none;
+    width: 320px;
+    height: 320px;
+    margin: 0 auto 32px;
+    /* Make it appear above the text */
+    order: -1;
+  }
+  .hero h2 { border-left: none; padding-left: 0; }
+  .hero-greeting { margin-left: auto; margin-right: auto; }
+  .hero-tagline  { margin-left: auto; margin-right: auto; }
+  .hero-buttons  { justify-content: center; }
+}
+
 @media (max-width: 900px) {
   .blog-list-image { width: 180px; }
 }
@@ -1190,34 +1215,11 @@ footer::before {
   }
   .nav-links a:last-child { border-bottom: none; }
 
-  /* On mobile: stack everything, hide the circle photo to save space */
-  .hero {
-    padding-right: 24px;
-    padding-left: 24px;
-    align-items: center;
-    text-align: center;
-  }
-  .hero-content { width: 100%; }
   .hero-photo {
-    position: relative;
-    right: auto; top: auto;
-    transform: none;
     width: 240px;
     height: 240px;
-    margin: 0 auto 32px;
-    /* Make it appear above the text on small screens */
-    order: -1;
   }
-  .hero-photo-label {
-    /* re-anchor to bottom of the repositioned circle */
-    position: static;
-    display: inline-block;
-    margin-top: 10px;
-  }
-  .hero h2 { border-left: none; padding-left: 0; }
-  .hero-greeting { margin-left: auto; margin-right: auto; }
-  .hero-tagline  { margin-left: auto; margin-right: auto; }
-  .hero-buttons  { justify-content: center; }
+
 
   .about {
     flex-direction: column;
