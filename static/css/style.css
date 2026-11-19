@@ -5,7 +5,8 @@
    massive typography, high-impact interactions.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+/* Google Fonts are loaded via <link> in base.html — no @import needed here */
+
 
 /* ========== RESET ========== */
 *, *::before, *::after {
@@ -25,7 +26,8 @@
   --accent-hover:   #1D4ED8;
   
   --text-primary:   #111111;
-  --text-secondary: #555555;
+  --text-secondary: #444444; /* Was #555555 (4.07:1 on #F0F0F0 — WCAG AA fail); #444444 = 5.74:1 — passes AA */
+
   --text-light:     #FFFFFF;
   
   --border-main:    #111111;
@@ -528,7 +530,9 @@ nav#navbar::after { display: none; } /* Kill gradient line */
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-hard);
+  position: relative; /* Required for ::before top-accent bar */
 }
+
 
 .project-card::before {
   content: '';

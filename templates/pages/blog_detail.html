@@ -1,89 +1,94 @@
 {% extends "base.html" %}
 {% load static %}
-{% load portfolio_tags %}
+{% load portfolio_tags image_tags %}
 
 {% block title %}{{ post.title }} | {{ profile.name|default:"Abiral Khatiwada" }}{% endblock %}
 {% block meta_description %}{% if post.meta_description %}{{ post.meta_description }}{% else %}{{ post.excerpt|truncatewords:20 }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}{% endblock %}
 
 {% block extra_meta %}
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ post.title }} | {{ profile.name|default:'Abiral Khatiwada' }}" />
-    <meta property="og:description" content="{% if post.meta_description %}{{ post.meta_description }}{% else %}{{ post.excerpt|truncatewords:20 }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}" />
-    {% if post.image %}
-    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}" />
-    {% endif %}
-    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ post.title }} | {{ profile.name|default:'Abiral Khatiwada' }}" />
+  <meta property="og:description" content="{% if post.meta_description %}{{ post.meta_description }}{% else %}{{ post.excerpt|truncatewords:20 }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}" />
+  {% if post.image %}
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}" />
+  {% endif %}
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{{ post.title }} | {{ profile.name|default:'Abiral Khatiwada' }}" />
-    <meta name="twitter:description" content="{% if post.meta_description %}{{ post.meta_description }}{% else %}{{ post.excerpt|truncatewords:20 }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}" />
-    {% if post.image %}
-    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}" />
-    {% endif %}
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ post.title }} | {{ profile.name|default:'Abiral Khatiwada' }}" />
+  <meta name="twitter:description" content="{% if post.meta_description %}{{ post.meta_description }}{% else %}{{ post.excerpt|truncatewords:20 }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}" />
+  {% if post.image %}
+  <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}" />
+  {% endif %}
 
-    <!-- Structured Data (JSON-LD) for Search Engines -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "{{ post.title|escapejs }}",
-      "description": "{% if post.meta_description %}{{ post.meta_description|escapejs }}{% else %}{{ post.excerpt|truncatewords:20|escapejs }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}",
-      {% if post.image %}
-      "image": "{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}",
-      {% endif %}
-      "datePublished": "{{ post.created_at|date:'c' }}",
-      "dateModified": "{{ post.updated_at|date:'c' }}",
-      "author": {
-        "@type": "Person",
-        "name": "{{ profile.name|default:'Abiral Khatiwada'|escapejs }}",
-        "url": "https://abiralkhatiwada.com.np"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "{{ profile.name|default:'Abiral Khatiwada'|escapejs }}",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}"
-        }
-      },
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "{{ request.build_absolute_uri }}"
+  <!-- Structured Data (JSON-LD) for Search Engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ post.title|escapejs }}",
+    "description": "{% if post.meta_description %}{{ post.meta_description|escapejs }}{% else %}{{ post.excerpt|truncatewords:20|escapejs }} - Read more from Abiral Khatiwada, IT professional from Jhapa.{% endif %}",
+    {% if post.image %}
+    "image": "{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}",
+    {% endif %}
+    "datePublished": "{{ post.created_at|date:'c' }}",
+    "dateModified": "{{ post.updated_at|date:'c' }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ profile.name|default:'Abiral Khatiwada'|escapejs }}",
+      "url": "https://abiralkhatiwada.com.np"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ profile.name|default:'Abiral Khatiwada'|escapejs }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}"
       }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ request.build_absolute_uri }}"
     }
-    </script>
+  }
+  </script>
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/blog.css' %}" />
 {% endblock %}
 
 {% block content %}
 <article class="blog-detail">
-    <div class="blog-detail-header">
-        <a href="{% url 'portfolio:blog_list' %}" class="back-link">← Back to Blog</a>
-        <time datetime="{{ post.created_at|date:'Y-m-d' }}">{{ post.created_at|date:"F d, Y" }}</time>
-        <h1>{{ post.title }}</h1>
-        {% if post.updated_at != post.created_at %}
-        <p class="updated-date">Updated: {{ post.updated_at|date:"F d, Y" }}</p>
-        {% endif %}
-    </div>
-
-    {% if post.image %}
-    <div class="blog-detail-image">
-        <img src="{{ post.image.url }}" alt="{{ post.title }}" />
-    </div>
+  <div class="blog-detail-header">
+    <a href="{% url 'portfolio:blog_list' %}" class="back-link">← Back to Blog</a>
+    <time datetime="{{ post.created_at|date:'Y-m-d' }}">{{ post.created_at|date:"F d, Y" }}</time>
+    <h1>{{ post.title }}</h1>
+    {% if post.updated_at != post.created_at %}
+    <p class="updated-date">Updated: {{ post.updated_at|date:"F d, Y" }}</p>
     {% endif %}
+  </div>
 
-    <div class="blog-detail-content">
-        {{ post.content|markdown }}
-    </div>
+  {% if post.image %}
+  <div class="blog-detail-image">
+    <img
+      src="{{ post.image.url|cloudinary_transform:'c_limit,w_760,f_auto,q_auto' }}"
+      alt="{{ post.title }}"
+      width="760"
+      height="400"
+      loading="lazy"
+    />
+  </div>
+  {% endif %}
 
-    <div class="blog-detail-footer">
-        <a href="{% url 'portfolio:blog_list' %}" class="btn btn-outline">← More Posts</a>
-        <a href="{% url 'portfolio:home' %}" class="btn btn-outline">Home</a>
-    </div>
+  <div class="blog-detail-content">
+    {{ post.content|markdown }}
+  </div>
+
+  <div class="blog-detail-footer">
+    <a href="{% url 'portfolio:blog_list' %}" class="btn btn-outline">← More Posts</a>
+    <a href="{% url 'portfolio:home' %}" class="btn btn-outline">Home</a>
+  </div>
 </article>
 {% endblock %}

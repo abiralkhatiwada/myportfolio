@@ -5,17 +5,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (toggle && links) {
     toggle.addEventListener("click", function () {
-      links.classList.toggle("active");
+      const isOpen = links.classList.toggle("active");
       toggle.classList.toggle("open");
+      // Accessibility: reflect open state for screen readers
+      toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
 
     links.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
         links.classList.remove("active");
         toggle.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
       });
     });
   }
+
 
   // Navbar scroll effect
   const nav = document.getElementById("navbar");

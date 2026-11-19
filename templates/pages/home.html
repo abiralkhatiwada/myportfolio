@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static image_tags %}
 
 {% block title %}
   {{ profile.name|default:'Abiral Khatiwada' }} | Portfolio
@@ -23,7 +23,13 @@
         {% for post in recent_posts %}
           <a href="{% url 'portfolio:blog_detail' post.slug %}" class="blog-card">
             {% if post.image %}
-              <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+              <img
+                src="{{ post.image.url|cloudinary_transform:'c_fill,w_600,h_200,f_auto,q_auto' }}"
+                alt="{{ post.title }}"
+                width="600"
+                height="200"
+                loading="lazy"
+              />
             {% else %}
               <div class="blog-card-placeholder">
                 <span>📝</span>
