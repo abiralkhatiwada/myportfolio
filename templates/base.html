@@ -3,53 +3,75 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Abiral Khatiwada | Portfolio{% endblock %}</title>
-    <meta name="description"
-        content="{% block meta_description %}Portfolio of Abiral Khatiwada — IT Professional, Flutter Developer, and Computer Specialist from Jhapa, Nepal.{% endblock %}" />
-    <meta name="keywords" content="Abiral, Abiral Khatiwada, IT Jhapa, computer specialist Nepal, CPanel expert, Flutter developer Jhapa, software engineer Nepal" />
-    {% block extra_meta %}{% endblock %}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.0.1" />
-    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}?v=1.0.1" />
-    <link rel="shortcut icon" href="{% static 'images/logo.png' %}?v=1.0.1" type="image/png" />
-    <link rel="apple-touch-icon" href="{% static 'images/logo.png' %}?v=1.0.1" />
-    {% block extra_css %}{% endblock %}
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Abiral Khatiwada",
-      "url": "https://abiralkhatiwada.com.np",
-      "jobTitle": "IT Professional & Flutter Developer",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Jhapa",
-        "addressCountry": "Nepal"
-      },
-      "sameAs": [
-        "https://github.com/Abiral-Khatiwada",
-        "https://linkedin.com/in/abiral-khatiwada"
-      ]
-    }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Abiral Khatiwada | Portfolio{% endblock %}</title>
+  <meta name="description"
+    content="{% block meta_description %}Portfolio of Abiral Khatiwada — IT Professional, Flutter Developer, and Computer Specialist from Jhapa, Nepal.{% endblock %}" />
+  <meta name="keywords" content="Abiral, Abiral Khatiwada, IT Jhapa, computer specialist Nepal, CPanel expert, Flutter developer Jhapa, software engineer Nepal" />
+  {% block extra_meta %}{% endblock %}
+
+  <!-- DNS prefetch / preconnect for third-party origins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!--
+    Load Inter font — only the weights actually used in the stylesheet.
+    Weight 300 was not used. Weights 400,500,600,700,800 are used.
+    font-display=swap prevents render-blocking flash of invisible text.
+  -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Critical stylesheet — inline preload hint so browser discovers it ASAP -->
+  <link rel="preload" href="{% static 'css/style.css' %}?v=2.0.0" as="style" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2.0.0" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}?v=2.0.0" />
+  <link rel="shortcut icon" href="{% static 'images/logo.png' %}?v=2.0.0" type="image/png" />
+  <link rel="apple-touch-icon" href="{% static 'images/logo.png' %}?v=2.0.0" />
+
+  {% block extra_css %}{% endblock %}
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Abiral Khatiwada",
+    "url": "https://abiralkhatiwada.com.np",
+    "jobTitle": "IT Professional & Flutter Developer",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Jhapa",
+      "addressCountry": "Nepal"
+    },
+    "sameAs": [
+      "https://github.com/Abiral-Khatiwada",
+      "https://linkedin.com/in/abiral-khatiwada"
+    ]
+  }
+  </script>
 </head>
 
 <body>
-    {% include "components/navbar/navbar.html" %}   
+  {% include "components/navbar/navbar.html" %}
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
 
-    {% include "components/footer/footer.html" %}
+  {% include "components/footer/footer.html" %}
 
-    <script src="{% static 'js/main.js' %}"></script>
-    {% block extra_js %}{% endblock %}
+  <!--
+    defer: script downloads in parallel with HTML parsing, executes after
+    the document is parsed. Eliminates the render-blocking JS penalty.
+  -->
+  <script src="{% static 'js/main.js' %}?v=2.0.0" defer></script>
+  {% block extra_js %}{% endblock %}
 </body>
 
 </html>

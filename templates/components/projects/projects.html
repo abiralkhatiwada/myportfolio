@@ -1,33 +1,39 @@
-{% load static %}
+{% load static image_tags %}
 <!-- Projects Section Component -->
 <section id="projects" class="projects">
-    <h2 class="section-title">My Contributions</h2>
-    <p class="section-subtitle">Here are some things I've built and made contributions</p>
-    <div class="project-grid" id="projectGrid">
-        {% for project in projects %}
-        <div class="project-card" data-index="{{ forloop.counter0 }}">
-            {% if project.image %}
-            <img src="{{ project.image.url }}" alt="{{ project.title }}" />
-            {% else %}
-            <div class="project-card-placeholder">
-                <span>{{ project.title|truncatechars:2 }}</span>
-            </div>
-            {% endif %}
-            <div class="project-info">  
-                <h3>{{ project.title }}</h3>
-                <p>{{ project.description|truncatewords:25 }}</p>
-                {% if project.link %}
-                <a href="{{ project.link }}" target="_blank" rel="noopener">{{ project.link_text }}</a>
-                {% endif %}
-            </div>
-        </div>
-        {% empty %}
-        <p class="empty-message">Projects coming soon — check back later!</p>
-        {% endfor %}
+  <h2 class="section-title">My Contributions</h2>
+  <p class="section-subtitle">Here are some things I've built and made contributions</p>
+  <div class="project-grid" id="projectGrid">
+    {% for project in projects %}
+    <div class="project-card" data-index="{{ forloop.counter0 }}">
+      {% if project.image %}
+      <img
+        src="{{ project.image.url|cloudinary_transform:'c_fill,w_600,h_180,f_auto,q_auto' }}"
+        alt="{{ project.title }}"
+        width="600"
+        height="180"
+        loading="lazy"
+      />
+      {% else %}
+      <div class="project-card-placeholder">
+        <span>{{ project.title|truncatechars:2 }}</span>
+      </div>
+      {% endif %}
+      <div class="project-info">
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.description|truncatewords:25 }}</p>
+        {% if project.link %}
+        <a href="{{ project.link }}" target="_blank" rel="noopener">{{ project.link_text }}</a>
+        {% endif %}
+      </div>
     </div>
-    <div class="see-more-wrapper" id="seeMoreWrapper" style="display: none;">
-        <button class="see-more-btn" id="seeMoreBtn">
-            See More <span class="arrow-icon">↓</span>
-        </button>
-    </div>
+    {% empty %}
+    <p class="empty-message">Projects coming soon — check back later!</p>
+    {% endfor %}
+  </div>
+  <div class="see-more-wrapper" id="seeMoreWrapper" style="display: none;">
+    <button class="see-more-btn" id="seeMoreBtn">
+      See More <span class="arrow-icon">↓</span>
+    </button>
+  </div>
 </section>

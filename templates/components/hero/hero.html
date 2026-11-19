@@ -1,28 +1,42 @@
+{% load static image_tags %}
 <!-- Hero Section Component -->
 <section id="home" class="hero">
 
-    <!-- Text content (normal flow, left side) -->
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-        <p class="hero-greeting">Hello, I'm</p>
-        <h1>{% if profile %}{{ profile.name }}{% else %}Abiral Khatiwada{% endif %}</h1>
-        <h2>{% if profile %}{{ profile.title }}{% else %}Flutter Developer | AI Enthusiast{% endif %}</h2>
-        <p class="hero-tagline">{% if profile %}{{ profile.tagline }}{% else %}Building intelligent, beautiful, and
-            user-friendly apps that make life easier.{% endif %}</p>
-        <div class="hero-buttons">
-            <a href="#projects" class="btn btn-primary">View My Work</a>
-            <a href="#contact" class="btn btn-outline">Get In Touch</a>
-        </div>
+  <!-- Text content (normal flow, left side) -->
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <p class="hero-greeting">Hello, I'm</p>
+    <h1>{% if profile %}{{ profile.name }}{% else %}Abiral Khatiwada{% endif %}</h1>
+    <h2>{% if profile %}{{ profile.title }}{% else %}Flutter Developer | AI Enthusiast{% endif %}</h2>
+    <p class="hero-tagline">{% if profile %}{{ profile.tagline }}{% else %}Building intelligent, beautiful, and
+      user-friendly apps that make life easier.{% endif %}</p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
     </div>
+  </div>
 
-    <!-- Circular profile photo (absolutely positioned on the right) -->
-    <div class="hero-photo">
-        {% if profile and profile.profile_image %}
-            <img src="{{ profile.profile_image.url }}"
-                 alt="{{ profile.name }}" />
-        {% else %}
-            <div class="hero-photo-placeholder">AK</div>
-        {% endif %}
-    </div>
+  <!-- Circular profile photo (absolutely positioned on the right) -->
+  <div class="hero-photo">
+    {% if profile and profile.profile_image %}
+      <!--
+        LCP element — critical attributes:
+        - fetchpriority="high": tells the browser to fetch this image before other images
+        - width/height: prevents layout shift (CLS) while image loads
+        - NO loading="lazy": never lazy-load the LCP element
+        - Cloudinary transform: serves a 480×480 WebP/AVIF at correct display size
+          instead of the original 3024×4032 phone photo
+      -->
+      <img
+        src="{{ profile.profile_image.url|cloudinary_transform:'c_fill,w_480,h_480,f_auto,q_auto' }}"
+        alt="{{ profile.name }} — Flutter Developer from Jhapa, Nepal"
+        width="420"
+        height="420"
+        fetchpriority="high"
+      />
+    {% else %}
+      <div class="hero-photo-placeholder">AK</div>
+    {% endif %}
+  </div>
 
 </section>

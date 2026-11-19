@@ -1,47 +1,54 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static image_tags %}
 
 {% block title %}Apps | {{ profile.name|default:"Abiral Khatiwada" }}{% endblock %}
 {% block meta_description %}Explore Flutter applications and projects by Abiral Khatiwada.{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/apps.css' %}?v=1.0.3" />
+<link rel="stylesheet" href="{% static 'css/apps.css' %}?v=2.0.0" />
 {% endblock %}
 
 {% block content %}
 <div class="apps-page">
-    <div class="apps-header">
-        <h1>Flutter Apps</h1>
-        <p>Mobile applications built with Flutter and Dart</p>
-    </div>
+  <div class="apps-header">
+    <h1>Flutter Apps</h1>
+    <p>Mobile applications built with Flutter and Dart</p>
+  </div>
 
-    {% for app in apps %}
-    <section class="app-section {% if forloop.counter|divisibleby:2 %}alt{% endif %}">
-        {% if app.icon %}
-        <div class="app-icon-wrapper">
-            <img src="{{ app.icon.url }}" alt="{{ app.title }} Icon" class="app-list-icon" />
-        </div>
-        {% endif %}
-        
-        <div class="app-content-wrapper">
-            <h2>{{ app.title }}</h2>
-            <p>{{ app.excerpt }}</p>
-            <div class="app-actions">
-                {% if app.apk_file %}
-                <a href="{{ app.apk_file }}" class="btn-download" target="_blank" rel="noopener noreferrer">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    Download APK
-                </a>
-                {% endif %}
-                <a href="{{ app.get_absolute_url }}" class="btn-details">More Details</a>
-            </div>
-        </div>
-    </section>
-    {% empty %}
-    <div style="text-align:center; padding: 100px 20px;">
-        <h2 style="font-family: var(--font-display); color: var(--text-200);">No Apps Available Yet</h2>
-        <a href="{% url 'portfolio:home' %}" class="btn-details" style="margin-top:20px;">← Back Home</a>
+  {% for app in apps %}
+  <section class="app-section {% if forloop.counter|divisibleby:2 %}alt{% endif %}">
+    {% if app.icon %}
+    <div class="app-icon-wrapper">
+      <img
+        src="{{ app.icon.url|cloudinary_transform:'c_fill,w_280,h_280,f_auto,q_auto' }}"
+        alt="{{ app.title }} app icon"
+        class="app-list-icon"
+        width="140"
+        height="140"
+        loading="lazy"
+      />
     </div>
-    {% endfor %}
+    {% endif %}
+
+    <div class="app-content-wrapper">
+      <h2>{{ app.title }}</h2>
+      <p>{{ app.excerpt }}</p>
+      <div class="app-actions">
+        {% if app.apk_file %}
+        <a href="{{ app.apk_file }}" class="btn-download" target="_blank" rel="noopener noreferrer" aria-label="Download {{ app.title }} APK">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download APK
+        </a>
+        {% endif %}
+        <a href="{{ app.get_absolute_url }}" class="btn-details" aria-label="More details about {{ app.title }}">More Details</a>
+      </div>
+    </div>
+  </section>
+  {% empty %}
+  <div style="text-align:center; padding: 100px 20px;">
+    <h2 style="font-family: var(--font-display); color: var(--text-200);">No Apps Available Yet</h2>
+    <a href="{% url 'portfolio:home' %}" class="btn-details" style="margin-top:20px;">← Back Home</a>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}
